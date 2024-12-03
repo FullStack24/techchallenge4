@@ -52,7 +52,7 @@ O back-end necessário para rodar este projeto pode ser encontrado aqui: [Reposi
    Primeiro, clone o repositório do projeto para o seu ambiente local:
 
    ```bash
-   git clone https://github.com/thwanyleles/techchallenge4.git
+   git clone https://github.com/FullStack24/techchallenge4.git
    cd techchallenge4
    ```
 
