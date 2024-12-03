@@ -1,50 +1,165 @@
-# Welcome to your Expo app 👋
+import React, { useState } from 'react';
+import { View, TextInput, Alert, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { RegisterRequest } from '@/interfaces/Auth';
+import authService from "@/app/services/authService";
+import { useRouter } from 'expo-router';
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+const RegisterScreen: React.FC = () => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
 
-## Get started
+    const router = useRouter();
 
-1. Install dependencies
+    const handleRegister = async () => {
+        const registerData: RegisterRequest = { username, email, password, role };
+        try {
+            const response = await authService.register(registerData);
+            Alert.alert('Sucesso!', 'Usuário registrado com sucesso.');
+            router.push('/auth/LoginScreen');
+        } catch (error) {
+            if (error instanceof Error) {
+                Alert.alert('Erro!', error.message || 'Erro ao registrar usuário.');
+            } else {
+                Alert.alert('Erro!', 'Erro inesperado ao registrar usuário.');
+            }
+        }
+    };
 
-   ```bash
-   npm install
-   ```
+    return (
+        <View style={styles.container}>
+            <Image source={require('@/assets/images/logo.png')} style={styles.logo} />
+            <TextInput
+                style={styles.input}
+                placeholder="Nome de Usuário"
+                value={username}
+                onChangeText={setUsername}
+                placeholderTextColor="#A9A9A9"
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                placeholderTextColor="#A9A9A9"
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Senha"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                placeholderTextColor="#A9A9A9"
+            />
 
-2. Start the app
+            <Text style={styles.roleTitle}>Você é:</Text>
+            <View style={styles.radioGroup}>
+                <TouchableOpacity
+                    style={styles.radioContainer}
+                    onPress={() => setRole('student')}
+                >
+                    <View style={[styles.radioBox, role === 'student' && styles.radioChecked]} />
+                    <Text style={styles.radioLabel}>Estudante</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.radioContainer}
+                    onPress={() => setRole('teacher')}
+                >
+                    <View style={[styles.radioBox, role === 'teacher' && styles.radioChecked]} />
+                    <Text style={styles.radioLabel}>Professor</Text>
+                </TouchableOpacity>
+            </View>
 
-   ```bash
-    npx expo start
-   ```
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                <Text style={styles.buttonText}>Registrar</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
-In the output, you'll find options to open the app in a
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#1A1A1A',
+        padding: 16,
+    },
+    title: {
+        color: '#FFFFFF',
+        fontSize: 24,
+        marginBottom: 20,
+        fontWeight: 'bold',
+    },
+    input: {
+        height: 50,
+        width: '100%',
+        borderColor: '#FF6B6B',
+        borderWidth: 2,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 16,
+        color: '#FFFFFF',
+        backgroundColor: '#2B2B2B',
+        fontSize: 16,
+    },
+    roleTitle: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        marginVertical: 16,
+        alignSelf: 'flex-start',
+    },
+    radioGroup: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+        marginBottom: 20,
+    },
+    radioContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
+    logo: {
+        width: 261,  
+        height: 156, 
+        marginBottom: 20,
+    },
+    radioBox: {
+        width: 24,
+        height: 24,
+        borderColor: '#FF6B6B',
+        borderWidth: 2,
+        borderRadius: 4, 
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    radioChecked: {
+        backgroundColor: '#FF6B6B', // Cor quando selecionado
+    },
+    radioLabel: {
+        color: '#FFFFFF',
+        marginLeft: 8,
+        fontSize: 16,
+    },
+    button: {
+        width: '100%',
+        height: 50,
+        backgroundColor: '#FF6B6B',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        elevation: 2,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+export default RegisterScreen;
