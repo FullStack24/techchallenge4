@@ -18,6 +18,9 @@
 
 Bloguinho é um projeto desenvolvido como parte do Tech Challenge da Fase 4 do curso Full Stack Development. O objetivo é criar uma aplicação mobile para blogging utilizando React Native. A aplicação permite que docentes e alunos interajam com diversos endpoints REST implementados no back-end.
 
+## Video de apresentação
+https://www.youtube.com/watch?v=0qutoon5WQU
+
 ## Prototipo
 
 O design da aplicação pode ser encontrado no Figma: [Prototipo no Figma](https://www.figma.com/design/OSgtCQF4nhUUJwsLzZWl0e/Desafio-%234?node-id=0-1&t=BZLZlMvBKl4FTXhO-1)
