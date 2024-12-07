@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useRouter } from 'expo-router';
+import useAuth from '@/hooks/useAuth';
 
 interface FooterProps {
     userRole: string | null;
-    onHome: () => void;
     onLogout: () => void;
     onNavigateTo: (screen: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ userRole, onHome, onLogout, onNavigateTo }) => {
+const Footer: React.FC<FooterProps> = ({ userRole, onLogout, onNavigateTo }) => {
     const [menuVisible, setMenuVisible] = useState(false);
+    const { isAuthenticated } = useAuth();
+    const router = useRouter();
 
     const options = userRole === 'teacher' ? [
         { label: 'Sala do Professor', value: '/teachers/ListTeachersScreen' },
         { label: 'Sala do Aluno', value: '/students/ListStudentsScreen' },
         { label: 'Sala do Admin', value: '/admin/AdminScreen' },
     ] : [];
+
+    const handleHomeNavigation = () => {
+        if (isAuthenticated) {
+            router.push('/home/HomeScreen');
+        } else {
+            router.push('/auth/LoginScreen');
+        }
+    };
 
     return (
         <View style={styles.bottomNav}>
@@ -45,7 +56,7 @@ const Footer: React.FC<FooterProps> = ({ userRole, onHome, onLogout, onNavigateT
                     />
                 </View>
             )}
-            <TouchableOpacity onPress={onHome} style={styles.navItem}>
+            <TouchableOpacity onPress={handleHomeNavigation} style={styles.navItem}>
                 <Icon name="home" size={24} color="#FFFFFF" />
                 <Text style={styles.navText}>Home</Text>
             </TouchableOpacity>

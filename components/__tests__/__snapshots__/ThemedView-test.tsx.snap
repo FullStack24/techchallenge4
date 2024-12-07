@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deve renderizar ThemedView com a cor de fundo correta 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FFFFFF",
+      },
+      {
+        "padding": 10,
+      },
+    ]
+  }
+/>
+`;

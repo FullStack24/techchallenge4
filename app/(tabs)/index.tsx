@@ -9,10 +9,10 @@ const IndexScreen: React.FC = () => {
     const { loading, isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated) {
-            router.push('/explore');
+        if (isAuthenticated && !loading) {
+            router.push('/home/HomeScreen');
         }
-    }, [isAuthenticated, router]);
+    }, [isAuthenticated, loading, router]);
 
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;

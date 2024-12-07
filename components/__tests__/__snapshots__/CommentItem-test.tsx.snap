@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deve renderizar o CommentItem corretamente 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": 5,
+      "elevation": 2,
+      "marginBottom": 12,
+      "padding": 12,
+      "shadowColor": "#000",
+      "shadowOffset": {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 4,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#333333",
+        "fontWeight": "bold",
+        "marginBottom": 4,
+      }
+    }
+  >
+    John Doe
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#555555",
+      }
+    }
+  >
+    This is a comment
+  </Text>
+</View>
+`;

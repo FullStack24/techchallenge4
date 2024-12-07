@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deve renderizar o header com o logo corretamente 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#000000",
+      "padding": 16,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#FFFFFF",
+        "fontSize": 20,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Bloguinho
+  </Text>
+</View>
+`;
